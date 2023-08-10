@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../shorten-urls-48.png" type="image/x-icon">
+    <title>URL | Shortener</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ecf0f1;
+            font-family: 'Roboto', sans-serif;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            text-align: center;
+            color: #2c3e50;
+            padding-top: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        header #formCont {
+            max-width: 500px;
+            width: 90%;
+            margin: 0 auto;
+            margin-bottom: 3rem;
+        }
+
+        header #formCont form {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        header #formCont form>* {
+            margin-bottom: 1rem;
+        }
+
+        header #formCont form input:last-child {
+            margin-bottom: 0rem;
+        }
+
+        header #formCont form label {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 2.5rem;
+            color: #34495e;
+        }
+
+        header #formCont form>input {
+            border: 0;
+            border-radius: 4px;
+        }
+
+        header #formCont form #field {
+            padding: 1rem;
+            font-size: 1.5rem;
+        }
+
+        header #formCont form #sub {
+            align-self: flex-end;
+            color: #fff;
+            background-color: #e74c3c;
+            padding: 0.8rem 0.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        textarea {
+            resize: none;
+            padding: 1rem;
+            font-size: 1rem;
+            border: none;
+            outline: none;
+            border-radius: 4px;
+        }
+
+        header #tableAnanlytics {
+            display: flex;
+            justify-content: center;
+        }
+
+        header #tableAnanlytics table {
+            max-width: 500px;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        header #tableAnanlytics table,
+        th,
+        td {
+            border: 1px solid #2c3e50;
+            border-collapse: collapse;
+        }
+
+        header #tableAnanlytics th,
+        td {
+            background-color: #96D4D4;
+            padding: 0.2rem;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>URL Shortener</h1>
+        <section id="formCont">
+            <form method="POST" action="/url">
+                <label>Enter your original URL</label>
+                <% if (!locals.shortId) { %>
+                    <input id="field" type="text" name="url" placeholder=" https://xyz.com" required>
+                    <% } %>
+                        <% if (locals.shortId) { %>
+                            <textarea resize="none" cols="10"
+                                rows="1">http://localhost:3000/short/<%=shortId%></textarea>
+                            <% } %>
+                                <% if (!locals.shortId) { %>
+                                    <input id="sub" type="submit">
+                                    <% } %>
+            </form>
+        </section>
+        <section id="tableAnanlytics">
+            <% if (locals.urls) { %>
+                <table border="1px solid black">
+                    <thead>
+                        <th>S. No</th>
+                        <th>ShortID</th>
+                        <th>Redirect</th>
+                        <th>Clicks</th>
+                    </thead>
+                    <tbody>
+                        <% urls.forEach((url, index)=> { %>
+                            <tr>
+                                <td>
+                                    <%= index+1 %>
+                                </td>
+                                <td>
+                                    <%= url.ShortId %>
+                                </td>
+                                <td>
+                                    <%= url.urlRedirect %>
+                                </td>
+                                <td>
+                                    <%= url.visitHistory.length %>
+                                </td>
+                                <% }) %>
+                            </tr>
+                    </tbody>
+                </table>
+                <% } %>
+        </section>
+
+    </header>
+    <script>
+
+    </script>
+</body>
+
+</html>

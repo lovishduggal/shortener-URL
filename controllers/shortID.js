@@ -2,7 +2,6 @@ const URL = require('../models/url');
 
 async function handleGetUserByShortID(req, res) {
     const shortId = req.params.shortId;
-    console.log(shortId);
     try {
         const entry = await URL.findOneAndUpdate(
             { ShortId: shortId },
@@ -13,7 +12,6 @@ async function handleGetUserByShortID(req, res) {
         if (!entry) {
             return res.status(404).send('URL not found');
         }
-        console.log(entry);
         res.redirect(entry.urlRedirect);
     } catch (error) {
         console.error('Error:', error);
