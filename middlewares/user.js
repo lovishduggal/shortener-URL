@@ -9,4 +9,11 @@ async function checkUserIsLoggedIn(req, res, next) {
     req.user = user;
     next();
 }
-module.exports = { checkUserIsLoggedIn };
+
+async function filterUrls(req, res, next) {
+    const sessionId = req.cookies.uid;
+    const user = getUserBySessionId(sessionId);
+    req.user = user;
+    next();
+}
+module.exports = { checkUserIsLoggedIn, filterUrls };
