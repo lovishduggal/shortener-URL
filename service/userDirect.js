@@ -1,10 +1,19 @@
-const mapSessionIdToUserObject = new Map();
+const jwt = require('jsonwebtoken');
+const serectKey = 'lovish@123$';
 
-function setSessionIdWithUser(sessionId, user) {
-    mapSessionIdToUserObject.set(sessionId, user);
+function setSessionIdWithUser(user) {
+    const payLoad = {
+        id: user.id,
+        email: user.email,
+    };
+    return jwt.sign(payLoad, serectKey);
 }
 
-function getUserBySessionId(sessionId) {
-    return mapSessionIdToUserObject.get(sessionId);
+function getUserBySessionId(token) {
+    try {
+        return jwt.verify(token, serectKey);
+    } catch (err) {
+        if (err) return null;
+    }
 }
 module.exports = { setSessionIdWithUser, getUserBySessionId };
